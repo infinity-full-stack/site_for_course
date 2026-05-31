@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Kurs Platformasi</title>
+</head>
+<body>
+
+<div>
+    {% for course in courses %}
+    <a href="{% url 'course_students' course.id %}">{{ course.name }}</a>
+    {% endfor %}
+</div>
+
+<div>
+    {% block main %}
+    {% endblock main %}
+</div>
+
+</body>
+</html>
