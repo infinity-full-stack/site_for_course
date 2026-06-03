@@ -5,7 +5,7 @@
     <title>Kurs Platformasi</title>
 </head>
 <body>
-
+<a href="{% url 'home' %}">Asosiy sahifa</a>
 <div>
     {% for course in courses %}
     <a href="{% url 'course_students' course.id %}">{{ course.name }}</a>
