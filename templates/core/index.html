@@ -1,7 +1,36 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    {% for student in students %}
-    <a href="{% url 'student_detail' student.id %}">{{ student.full_name }}</a>
-    {% endfor %}
+
+<form method="get">
+    <input type="text" name="q" value="{{ q }}" placeholder="Talaba qidirish...">
+    <button type="submit">Qidirish</button>
+</form>
+
+{% for student in page.object_list %}
+<a href="{% url 'student_detail' student.id %}">{{ student.full_name }}</a>
+{% endfor %}
+
 {% endblock main %}
+
+{% block paginator %}
+{% if page.has_other_pages %}
+<div>
+    {% if page.has_previous %}
+    <a href="?page={{ page.previous_page_number }}{% if q %}&q={{ q }}{% endif %}">&laquo;</a>
+    {% endif %}
+
+    {% for p_number in page.paginator.page_range %}
+    {% if page.number == p_number %}
+    <strong>{{ p_number }}</strong>
+    {% else %}
+    <a href="?page={{ p_number }}{% if q %}&q={{ q }}{% endif %}">{{ p_number }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if page.has_next %}
+    <a href="?page={{ page.next_page_number }}{% if q %}&q={{ q }}{% endif %}">&raquo;</a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock paginator %}

@@ -9,15 +9,36 @@
 <a href="{% url 'register' %}">Ro'yxatdan o'tish</a>
 <a href="{% url 'login_view' %}">Kirish</a>
 <a href="{% url 'logout_view' %}">Chiqish</a>
+
+<div>
+    {% if perms.core.add_course %}
+    <a href="{% url 'create_course' %}">Kurs qo'shish</a>
+    {% endif %}
+    {% if perms.core.add_student %}
+    <a href="{% url 'create_student' %}">Talaba qo'shish</a>
+    {% endif %}
+</div>
+
 <div>
     {% for course in courses %}
     <a href="{% url 'course_students' course.id %}">{{ course.name }}</a>
+    {% if perms.core.change_course %}
+    <a href="{% url 'update_course' course.id %}">Tahrirlash</a>
+    {% endif %}
+    {% if perms.core.delete_course %}
+    <a href="{% url 'delete_course' course.id %}">O'chirish</a>
+    {% endif %}
     {% endfor %}
 </div>
 
 <div>
     {% block main %}
     {% endblock main %}
+</div>
+
+<div>
+    {% block paginator %}
+    {% endblock paginator %}
 </div>
 
 </body>
